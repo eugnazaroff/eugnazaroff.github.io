@@ -184,6 +184,16 @@
   .work li::before { content: ""; position: absolute; left: 0; top: 0.78em; width: 14px; border-top: 1.5px solid var(--black); }
   .work-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font-weight: 700; font-size: 17px; }
 
+  /* рекомендации */
+  .recs { border-top: 1px solid var(--black); }
+  .rec { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 0 48px; padding: 48px 0; border-bottom: 1px solid var(--black); }
+  .rec:first-child { border-top: 1px solid var(--black); }
+  .rec:last-child { border-bottom: 0; }
+  .rec .name { font: 800 clamp(1.6rem, 2.4vw, 2.25rem)/1 var(--font); letter-spacing: -0.03em; margin-bottom: 14px; }
+  .rec .who p:not(.name) { font-size: 16px; line-height: 1.5; }
+  .rec .who .pos { font-weight: 700; }
+  .rec blockquote { margin: 0; max-width: 64ch; display: grid; gap: 14px; font-size: 18px; line-height: 1.6; }
+
   /* навыки, образование */
   .rows { border-top: 1px solid var(--black); }
   .row { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 0 48px; padding: 18px 0; border-bottom: 1px solid var(--black); font-size: 18px; }
@@ -256,7 +266,7 @@
     .bar nav { display: none; }
     .about-text { padding: 96px 48px 96px var(--gutter); }
     .principles-text { padding: 96px var(--gutter) 96px 48px; }
-    .sec-title, .work, .row { grid-template-columns: 220px minmax(0, 1fr); gap: 0 32px; }
+    .sec-title, .work, .row, .rec { grid-template-columns: 220px minmax(0, 1fr); gap: 0 32px; }
   }
   @media (max-width: 760px) {
     :root { --gutter: 16px; --bar: 50px; }
@@ -295,6 +305,9 @@
     .works-head-text { border-left: 0; border-top: 1px solid var(--black); padding: 40px var(--gutter) 48px; }
     .work, .row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
     .work { padding: 36px 0; }
+    .rec { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 36px 0; }
+    .rec .name { margin-bottom: 10px; }
+    .rec blockquote { font-size: 17px; }
     .work .years { font-size: 16px; font-weight: 700; letter-spacing: 0; }
     .contact { padding-top: 72px; }
     .contact .lead { margin-bottom: 36px; }
@@ -329,6 +342,7 @@
     <nav aria-label="Разделы / Sections">
       <a href="#about"><span lang="ru">Обо мне</span><span lang="en">About</span></a>
       <a href="#works"><span lang="ru">Опыт</span><span lang="en">Experience</span></a>
+      <a href="#recs"><span lang="ru">Рекомендации</span><span lang="en">Recommendations</span></a>
       <a href="#skills"><span lang="ru">Навыки</span><span lang="en">Skills</span></a>
       <a href="#bio"><span lang="ru">Образование</span><span lang="en">Education</span></a>
       <a href="#contact"><span lang="ru">Контакты</span><span lang="en">Contact</span></a>
@@ -535,6 +549,54 @@
           </ul>
         </div>
       </article>
+    </div>
+  </section>
+
+  <!-- Рекомендации -->
+  <section class="sec recs" id="recs">
+    <div class="wrap">
+      <div class="sec-title">
+        <h2><span lang="ru">Рекомендации</span><span lang="en">Recommendations</span></h2>
+        <p lang="en">Translated from Russian.</p>
+      </div>
+      <div class="rec-list">
+        <figure class="rec">
+          <figcaption class="who">
+            <p class="name"><span lang="ru">Михаил Давыденков</span><span lang="en">Mikhail Davydenkov</span></p>
+            <p class="pos">Head of Mobile, D2C Tech / Qlean.ru</p>
+            <p lang="ru">Руководитель</p><p lang="en">Manager</p>
+          </figcaption>
+          <blockquote lang="ru">
+            <p>Мы работали с&nbsp;Женей в&nbsp;одной команде около полутора лет. Было большим удовольствием работать. Он&nbsp;отлично понимает современную мобильную разработку и&nbsp;обладает глубокой экспертизой в&nbsp;React Native.</p>
+            <p>Женя значительно улучшил архитектуру и&nbsp;кодовую базу нескольких сложных проектов. Он&nbsp;самостоятельно развивал и&nbsp;поддерживал более шести приложений компании: приложения для&nbsp;клинеров, курьеров, сотрудников и&nbsp;владельцев ПВЗ, складское и&nbsp;фабричное приложения, а&nbsp;также реализовывал функциональность для&nbsp;клиентских приложений.</p>
+            <p>Отдельно хочу отметить его архитектурные компетенции. Мы&nbsp;строили платформу на&nbsp;основе небольших переиспользуемых модулей, и&nbsp;Евгений спроектировал ряд ключевых модулей, которые использовались сразу в&nbsp;нескольких приложениях.</p>
+            <p>Также у&nbsp;него отлично развиты soft skills&nbsp;— он&nbsp;эффективно взаимодействует как с&nbsp;инженерами, так и&nbsp;с&nbsp;бизнесом, умеет быстро принимать решения и&nbsp;находить компромиссы.</p>
+            <p>За&nbsp;время поиска сотрудников мы&nbsp;провели около 100 технических интервью, и&nbsp;Женя оказался самым сильным кандидатом.</p>
+            <p>Я&nbsp;искренне рекомендую Евгения любой компании, которая ценит качество, скорость разработки, инженерную культуру и&nbsp;результат для&nbsp;бизнеса.</p>
+          </blockquote>
+          <blockquote lang="en">
+            <p>Zhenya and I worked on the same team for about a year and a half, and it was a real pleasure. He has an excellent grasp of modern mobile development and deep expertise in React Native.</p>
+            <p>Zhenya significantly improved the architecture and codebase of several complex projects. He independently developed and maintained more than six of the company’s apps: apps for cleaners, couriers, staff and pickup point owners, the warehouse and factory apps, and he also built features for the customer apps.</p>
+            <p>I especially want to highlight his architecture skills. We were building a platform out of small reusable modules, and Evgeny designed a number of key modules that were used in several apps at once.</p>
+            <p>His soft skills are excellent too: he works effectively with both engineers and the business, makes decisions quickly and finds compromises.</p>
+            <p>While hiring, we ran about 100 technical interviews, and Zhenya turned out to be the strongest candidate.</p>
+            <p>I sincerely recommend Evgeny to any company that values quality, development speed, engineering culture and business results.</p>
+          </blockquote>
+        </figure>
+        <figure class="rec">
+          <figcaption class="who">
+            <p class="name"><span lang="ru">Андрей Ломакин</span><span lang="en">Andrey Lomakin</span></p>
+            <p class="pos">Lead React Native</p>
+            <p lang="ru">Коллега в&nbsp;Купере и&nbsp;Ecom.tech</p><p lang="en">Colleague at Kuper and Ecom.tech</p>
+          </figcaption>
+          <blockquote lang="ru">
+            <p>Знаю Женю по&nbsp;совместной работе в&nbsp;Купере и&nbsp;Ecom.tech. Он&nbsp;очень круто усилил команду как опытный React Native разработчик. Здорово умеет копать вглубь, не&nbsp;боится нестандартных задач и&nbsp;всегда готов подсказать на&nbsp;код&#8209;ревью. С&nbsp;ним максимально комфортно общаться, аргументировать технические решения и&nbsp;просто работать бок о&nbsp;бок. Искренне рекомендую.</p>
+          </blockquote>
+          <blockquote lang="en">
+            <p>I know Zhenya from working together at Kuper and Ecom.tech. He really strengthened the team as an experienced React Native developer. He’s great at digging deep, isn’t afraid of unusual problems and is always ready to help out in code review. He’s extremely easy to talk to, to discuss technical decisions with and simply to work side by side with. I sincerely recommend him.</p>
+          </blockquote>
+        </figure>
+      </div>
     </div>
   </section>
 
