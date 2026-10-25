@@ -241,15 +241,20 @@
     .bar { position: absolute; left: 0; right: 0; background: transparent; border-bottom: 0; }
     .hero, .about, .principles, .works-head, .contact-grid, .bio { grid-template-columns: minmax(0, 1fr); }
     .hero { min-height: 0; }
-    .hero .plate { min-height: 0; height: calc(100svh - 176px); max-height: 150vw; }
-    @media (max-width: 380px) { .hero .plate { height: calc(100svh - 228px); } .hero .title { font-size: 1.1rem; } }
+    .hero .plate { min-height: 0; height: min(calc(100svh - 250px), 140vw); }
+    @media (max-width: 380px) { .hero .plate { height: min(calc(100svh - 270px), 130vw); } .hero .title { font-size: 1.1rem; } }
+    /* на телефоне кнопка Telegram стоит сразу под именем и должностью */
+    .hero-text > * { order: 2; }
+    .hero-text > h1, .hero-text > .title { order: 0; }
+    .hero-text > .cta { order: 1; }
     .hero-text { padding: 14px var(--gutter) 40px; }
     .hero h1 { font-size: clamp(2.5rem, 12vw, 3.25rem); margin: 8px 0 10px; }
     .hero .title { margin-bottom: 18px; }
     .hero .lede { font-size: 18px; }
     .facts li { grid-template-columns: 64px 1fr; gap: 12px; }
     .facts b { font-size: 24px; }
-    .cta { display: none; }
+    .cta { margin: 0 calc(-1 * var(--gutter)) 24px; padding: 0 var(--gutter); height: 60px; font-size: 18px; }
+    .cta .icon { width: 20px; height: 20px; }
     .mail { margin-bottom: 0; }
     .about .plate { min-height: 0; aspect-ratio: 4 / 4.6; order: -1; }
     .about-text { padding: 48px var(--gutter) 64px; }
@@ -564,7 +569,7 @@
   </section>
 </main>
 
-<a class="sticky-cta" href="https://t.me/eugnazaroff" target="_blank" rel="noopener">
+<a class="sticky-cta away" href="https://t.me/eugnazaroff" target="_blank" rel="noopener">
   <span lang="ru">Написать в&nbsp;Telegram</span><span lang="en">Message on Telegram</span>
   <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
 </a>
@@ -596,12 +601,22 @@
       b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang'), true); });
     });
 
-    // Липкая кнопка Telegram уходит, когда на экране раздел контактов.
+    // Липкая кнопка Telegram появляется, только когда кнопка в первом экране ушла выше,
+    // и прячется у раздела контактов.
     var sticky = document.querySelector('.sticky-cta');
+    var heroCta = document.querySelector('.hero .cta');
     var contact = document.getElementById('contact');
-    if (sticky && contact && 'IntersectionObserver' in window) {
+    if (sticky && heroCta && contact && 'IntersectionObserver' in window) {
+      var heroGone = false, atContact = false;
+      var paint = function () { sticky.classList.toggle('away', !heroGone || atContact); };
       new IntersectionObserver(function (entries) {
-        sticky.classList.toggle('away', entries[0].isIntersecting);
+        var e = entries[0];
+        heroGone = !e.isIntersecting && e.boundingClientRect.top < 0;
+        paint();
+      }).observe(heroCta);
+      new IntersectionObserver(function (entries) {
+        atContact = entries[0].isIntersecting;
+        paint();
       }, { rootMargin: '0px 0px -20% 0px' }).observe(contact);
     }
   })();
