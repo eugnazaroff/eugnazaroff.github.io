@@ -77,6 +77,9 @@
 
   a { color: inherit; }
   :focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 4px; }
+  .skip { position: absolute; left: 16px; top: -60px; z-index: 20; background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  .skip:focus { top: 12px; }
+  section, .stats { scroll-margin-top: 76px; }
   img { display: block; max-width: 100%; height: auto; }
   .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
   .eyebrow {
@@ -160,7 +163,7 @@
   .about-grid img { border-radius: var(--radius); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 60%; width: 100%; }
   .about-text h2 { margin-bottom: 32px; }
   .about-text p { font-size: 19px; line-height: 1.65; margin: 0 0 22px; }
-  .about-text p.story { border-left: 2px solid var(--accent); padding-left: 20px; color: var(--muted); }
+  .about-text p.story { border-left: 2px solid var(--accent); padding-left: 20px; color: var(--ink); }
   .do-list { list-style: none; padding: 0; margin: 36px 0 0; border-top: 1px solid var(--line); }
   .do-list li { display: grid; grid-template-columns: 28px 1fr; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 16px; color: var(--muted); }
   .do-list li::before { content: "→"; color: var(--accent); font-family: "JetBrains Mono", monospace; }
@@ -228,13 +231,19 @@
   @media print {
     .js .reveal { opacity: 1 !important; transform: none !important; }
     header { position: static; }
+    nav, .skip, .contact-card .arrow { display: none !important; }
+    .contact-card { display: block; }
+    .contact-card::after { content: attr(href); display: block; margin-top: 4px; font-size: 12px; color: #555; word-break: break-all; }
+    .job-link::after { content: " (" attr(href) ")"; font-weight: 400; font-size: 11px; word-break: break-all; }
     .lang, .ctas svg { display: none; }
     section, .contact { padding: 40px 0; }
   }
 
   /* responsive */
   @media (max-width: 980px) {
-    nav { display: none; }
+    .bar { flex-wrap: wrap; height: auto; padding-top: 12px; padding-bottom: 10px; row-gap: 6px; }
+    nav { order: 3; width: 100%; gap: 22px; font-size: 14px; overflow-x: auto; white-space: nowrap; padding-bottom: 2px; }
+    section, .stats { scroll-margin-top: 104px; }
     section { padding: 88px 0; }
     .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 44px; }
     .hero-photo { max-width: 520px; }
@@ -247,7 +256,12 @@
     :root { --gutter: 16px; }
     body { font-size: 16px; }
     section { padding: 72px 0; }
-    .hero { padding: 40px 0 64px; }
+    .hero { padding: 0 0 64px; }
+    .hero-grid { gap: 32px; }
+    /* на телефоне фото — первый экран, во всю ширину */
+    .hero-photo { order: -1; max-width: none; margin: 0 calc(-1 * var(--gutter)); }
+    .hero-photo img { aspect-ratio: 4 / 4.6; border-radius: 0; object-position: 50% 22%; }
+    .hero-photo figcaption { left: var(--gutter); bottom: 20px; }
     .stats-grid { grid-template-columns: 1fr; }
     .stat, .stat + .stat { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-left: 0; }
     .stat + .stat { border-top: 1px solid var(--line); }
@@ -266,6 +280,8 @@
 </head>
 <body>
 
+<a class="skip" href="#main"><span lang="ru">К&nbsp;содержимому</span><span lang="en">Skip to content</span></a>
+
 <header id="top">
   <div class="wrap bar">
     <a class="logo" href="#top"><span lang="ru">Евгений Назаров</span><span lang="en">Evgeny Nazarov</span><span class="dot">.</span></a>
@@ -282,13 +298,13 @@
   </div>
 </header>
 
-<main>
+<main id="main">
   <!-- HERO -->
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow">Senior / Lead React Native Developer</p>
-        <h1><span lang="ru">Евгений<br>Назаров</span><span lang="en">Evgeny<br>Nazarov</span></h1>
+        <h1><span lang="ru">Евгений<br> Назаров</span><span lang="en">Evgeny<br> Nazarov</span></h1>
         <p class="lede" lang="ru">Делаю мобильные приложения на&nbsp;React Native&nbsp;— от&nbsp;архитектуры до&nbsp;релиза. Люблю <strong>крутые фичи, продуманный UX и&nbsp;чистый код</strong>.</p>
         <p class="lede" lang="en">I build mobile apps with React Native&nbsp;— from architecture to release. I love <strong>great features, thoughtful UX and clean code</strong>.</p>
         <div class="meta">
@@ -332,19 +348,19 @@
       <img class="reveal" src="img/about.jpg" srcset="img/about-720.jpg 720w, img/about.jpg 933w" sizes="(max-width: 980px) min(520px, 100vw), 420px" alt="" width="933" height="1400" loading="lazy">
       <div class="about-text reveal">
         <h2><span lang="ru">Обо мне</span><span lang="en">About</span></h2>
-        <p class="story" lang="ru">По&nbsp;образованию я&nbsp;хоровой дирижёр и&nbsp;художественный руководитель&nbsp;— и&nbsp;это неожиданно пригодилось в&nbsp;разработке. Работа дирижёра&nbsp;— чтобы десятки голосов звучали как&nbsp;один. В&nbsp;разработке я&nbsp;делаю то же: выстраиваю архитектуру и&nbsp;правила, при&nbsp;которых код одинаково хорош, кто бы его&nbsp;ни&nbsp;писал&nbsp;— я, коллега или AI&#8209;агент.</p>
-        <p class="story" lang="en">By training I’m a choral conductor and choir director&nbsp;— and it turned out to be surprisingly useful in engineering. A conductor’s job is to make dozens of voices sound as one. In engineering I do the same: I build the architecture and rules that keep code equally good no matter who writes it&nbsp;— me, a teammate or an AI agent.</p>
+        <p class="story" lang="ru">По&nbsp;образованию я&nbsp;хоровой дирижёр и&nbsp;художественный руководитель, и&nbsp;это пригодилось в&nbsp;разработке больше, чем я&nbsp;ожидал. Задача дирижёра&nbsp;— добиться, чтобы десятки голосов звучали как&nbsp;один. В&nbsp;разработке я&nbsp;делаю то же: выстраиваю архитектуру и&nbsp;правила, при&nbsp;которых код одинаково хорош, кто бы его&nbsp;ни&nbsp;писал&nbsp;— я, коллега или AI&#8209;агент.</p>
+        <p class="story" lang="en">By training I’m a choral conductor and choir director, and it has helped me in engineering more than I expected. A conductor’s job is to make dozens of voices sound as one. In engineering I do the same: I build the architecture and rules that keep code equally good no matter who writes it&nbsp;— me, a teammate or an AI agent.</p>
         <p lang="ru">Веду фичи целиком: проектирование, мобильный клиент, BFF, интеграции, запуск в&nbsp;продакшн и&nbsp;поддержка после релиза. Пишу нативные модули на&nbsp;Kotlin и&nbsp;Swift, провожу код-ревью и&nbsp;технические собеседования, наставляю разработчиков.</p>
         <p lang="en">I own features end to end: design, the mobile client, BFF, integrations, production launch and post-release support. I write native modules in Kotlin and Swift, run code reviews and technical interviews, and mentor engineers.</p>
         <ul class="do-list">
-          <li lang="ru"><span><b>Запуск с&nbsp;нуля</b>&nbsp;— пустой репозиторий → приложение в&nbsp;сторах</span></li>
-          <li lang="en"><span><b>Zero to store</b>&nbsp;— empty repo → app in the stores</span></li>
-          <li lang="ru"><span><b>Архитектура</b>&nbsp;— Clean Architecture, DDD, System Design</span></li>
-          <li lang="en"><span><b>Architecture</b>&nbsp;— Clean Architecture, DDD, System Design</span></li>
-          <li lang="ru"><span><b>Качество</b>&nbsp;— Jest, Detox, правила под автопроверкой</span></li>
-          <li lang="en"><span><b>Quality</b>&nbsp;— Jest, Detox, machine-checked rules</span></li>
-          <li lang="ru"><span><b>Релизы</b>&nbsp;— CI/CD, Fastlane, OTA-обновления</span></li>
-          <li lang="en"><span><b>Releases</b>&nbsp;— CI/CD, Fastlane, OTA updates</span></li>
+          <li lang="ru"><span><b>Запуск с&nbsp;нуля</b>: пустой репозиторий → приложение в&nbsp;сторах</span></li>
+          <li lang="en"><span><b>Zero to store</b>: empty repo → app in the stores</span></li>
+          <li lang="ru"><span><b>Архитектура</b>: Clean Architecture, DDD, System Design</span></li>
+          <li lang="en"><span><b>Architecture</b>: Clean Architecture, DDD, System Design</span></li>
+          <li lang="ru"><span><b>Качество</b>: Jest, Detox, правила под автопроверкой</span></li>
+          <li lang="en"><span><b>Quality</b>: Jest, Detox, machine-checked rules</span></li>
+          <li lang="ru"><span><b>Релизы</b>: CI/CD, Fastlane, OTA&#8209;обновления</span></li>
+          <li lang="en"><span><b>Releases</b>: CI/CD, Fastlane, OTA updates</span></li>
         </ul>
       </div>
     </div>
@@ -352,14 +368,14 @@
       <div class="value reveal">
         <p class="eyebrow"><span lang="ru">Продукт</span><span lang="en">Product</span></p>
         <h3 lang="ru">Меня драйвят крутые фичи</h3><h3 lang="en">Great features drive me</h3>
-        <p lang="ru">Мне важны продуманный UX, красивый дизайн и&nbsp;качество продукта до&nbsp;мелочей&nbsp;— а&nbsp;не&nbsp;просто закрытая задача.</p>
-        <p lang="en">Thoughtful UX, beautiful design and product quality down to the details matter to me&nbsp;— not just a closed ticket.</p>
+        <p lang="ru">Мне важны продуманный UX, красивый дизайн и&nbsp;качество продукта до&nbsp;мелочей.</p>
+        <p lang="en">Thoughtful UX, beautiful design and product quality down to the last detail matter to me.</p>
       </div>
       <div class="value reveal">
         <p class="eyebrow"><span lang="ru">Код</span><span lang="en">Code</span></p>
-        <h3 lang="ru">Чисто&nbsp;— и&nbsp;при&nbsp;этом быстро</h3><h3 lang="en">Clean&nbsp;— and still fast</h3>
-        <p lang="ru">Трепетно отношусь к&nbsp;чистоте кода, но&nbsp;знаю, как&nbsp;сделать быстро без&nbsp;потери качества и&nbsp;не&nbsp;копить техдолг: правила проверяют линтер и&nbsp;тесты, нарушение не&nbsp;пройдёт коммит, а&nbsp;долг записан в&nbsp;реестре, а&nbsp;не&nbsp;растёт незаметно.</p>
-        <p lang="en">I care deeply about clean code, yet I know how to ship fast without losing quality or piling up tech debt: linters and tests enforce the rules, a violation can’t be committed, and debt lives in a register instead of quietly growing.</p>
+        <h3 lang="ru">Чисто и&nbsp;при&nbsp;этом быстро</h3><h3 lang="en">Clean and still fast</h3>
+        <p lang="ru">Трепетно отношусь к&nbsp;чистоте кода, но&nbsp;знаю, как&nbsp;сделать быстро без&nbsp;потери качества и&nbsp;не&nbsp;копить техдолг. Правила проверяют линтер и&nbsp;тесты: нарушение не&nbsp;пройдёт в&nbsp;коммит. Долг записан в&nbsp;реестре, поэтому не&nbsp;растёт незаметно.</p>
+        <p lang="en">I care deeply about clean code, yet I know how to ship fast without losing quality or piling up tech debt. Linters and tests enforce the rules, so a violation can’t be committed. Debt is tracked in a log, so it never grows unnoticed.</p>
       </div>
     </div>
   </section>
@@ -369,36 +385,36 @@
     <div class="wrap">
       <div class="section-head reveal">
         <h2><span lang="ru">Опыт</span><span lang="en">Experience</span></h2>
-        <p lang="ru">Продуктовые команды, логистика, EdTech и&nbsp;госпроекты. Везде&nbsp;— React Native и&nbsp;ответственность за&nbsp;результат, а&nbsp;не&nbsp;только за&nbsp;код.</p>
-        <p lang="en">Product teams, logistics, EdTech and government projects. React Native everywhere&nbsp;— and ownership of outcomes, not just code.</p>
+        <p lang="ru">Продуктовые команды, логистика, EdTech и&nbsp;госпроекты. Везде React Native и&nbsp;ответственность за&nbsp;результат.</p>
+        <p lang="en">Product teams, logistics, EdTech and government projects. React Native everywhere, with ownership of the outcome.</p>
       </div>
       <div class="jobs">
         <article class="job reveal">
-          <div class="job-when"><span lang="ru">июль 2026&nbsp;— <span class="now">сейчас</span></span><span lang="en">Jul 2026 – <span class="now">now</span></span></div>
+          <div class="job-when"><span lang="ru">июл 2026&nbsp;— <span class="now">сейчас</span></span><span lang="en">Jul 2026 – <span class="now">now</span></span></div>
           <div>
             <h3><span lang="ru">Стобалльный репетитор</span><span lang="en">Stoballny Repetitor</span></h3>
             <p class="role">Senior Mobile Developer</p>
-            <p class="ctx" lang="ru">EdTech · подготовка к&nbsp;ЕГЭ и&nbsp;ОГЭ · весь мобильный цикл</p><p class="ctx" lang="en">EdTech · exam preparation · the whole mobile cycle</p>
+            <p class="ctx" lang="ru">EdTech · подготовка к&nbsp;ЕГЭ и&nbsp;ОГЭ · весь мобильный цикл</p><p class="ctx" lang="en">EdTech · exam preparation · end-to-end mobile</p>
             <ul lang="ru">
-              <li>С&nbsp;нуля в&nbsp;одиночку разработал приложение «Стобалльный банк»&nbsp;— тренажёр для&nbsp;подготовки к&nbsp;ЕГЭ и&nbsp;ОГЭ&nbsp;— и&nbsp;за&nbsp;2 месяца вывел его&nbsp;в&nbsp;сторы.</li>
-              <li>Написал собственный декларативный фреймворк поверх React Native&nbsp;— на&nbsp;нём собрано всё приложение.</li>
-              <li>Выстроил AI-first процесс: AI-агенты пишут код по&nbsp;спецификациям, а&nbsp;я&nbsp;проектирую архитектуру, пишу правила (80+, проверяются автоматически), делаю ревью и&nbsp;приёмку.</li>
-              <li>Вместе с&nbsp;DevOps сделал собственную систему OTA-обновлений: исправления доходят до&nbsp;пользователей без&nbsp;ревью сторов&nbsp;— быстрее, чем релиз на&nbsp;вебе.</li>
-              <li>Автоматизировал релизы: AI-агент сам определяет следующий шаг, собирает сборку, готовит тест-кейсы и&nbsp;пост в&nbsp;рабочий чат.</li>
+              <li>С&nbsp;нуля в&nbsp;одиночку разработал приложение «Стобалльный банк», тренажёр для&nbsp;подготовки к&nbsp;ЕГЭ и&nbsp;ОГЭ, и&nbsp;за&nbsp;два месяца вывел его&nbsp;в&nbsp;сторы.</li>
+              <li>Написал собственный декларативный фреймворк поверх React Native: на&nbsp;нём собрано всё приложение.</li>
+              <li>Выстроил AI&#8209;first процесс: AI&#8209;агенты пишут код по&nbsp;спецификациям, а&nbsp;я&nbsp;проектирую архитектуру, пишу правила (80+, проверяются автоматически), делаю ревью и&nbsp;приёмку.</li>
+              <li>Вместе с&nbsp;DevOps сделал собственную систему OTA&#8209;обновлений: исправления доходят до&nbsp;пользователей без&nbsp;ревью сторов. Это быстрее, чем релиз на&nbsp;вебе.</li>
+              <li>Автоматизировал релизы: AI&#8209;агент сам определяет следующий шаг, делает сборку, готовит тест-кейсы и&nbsp;пост в&nbsp;рабочий чат.</li>
             </ul>
             <ul lang="en">
-              <li>Built the “Stoballny Bank” exam-prep app from scratch, solo, and shipped it to the stores in 2 months.</li>
-              <li>Wrote my own declarative framework on top of React Native&nbsp;— the whole app is built on it.</li>
+              <li>Built the “Stoballny Bank” exam-prep app from scratch, solo, and shipped it to the stores in two months.</li>
+              <li>Wrote my own declarative framework on top of React Native; the whole app is built on it.</li>
               <li>Set up an AI-first process: AI agents write code from specs, while I own the architecture, the 80+ machine-checked rules, review and sign-off.</li>
-              <li>Built an in-house OTA update system with DevOps: fixes reach users without store review&nbsp;— faster than a web release.</li>
-              <li>Automated releases: an AI agent works out the next step, makes the build, prepares test cases and posts to the team chat.</li>
+              <li>Built an in-house OTA update system with DevOps: fixes reach users without store review, faster than a web release.</li>
+              <li>Automated releases: an AI agent works out the next step, builds the release, prepares test cases and posts to the team chat.</li>
             </ul>
             <a class="job-link" href="https://www.rustore.ru/catalog/app/ru.stoballov.freemium" target="_blank" rel="noopener"><span lang="ru">Приложение в&nbsp;RuStore</span><span lang="en">The app on RuStore</span> ↗</a>
           </div>
         </article>
 
         <article class="job reveal">
-          <div class="job-when"><span lang="ru">май 2025&nbsp;— июль 2026</span><span lang="en">May 2025 – Jul 2026</span></div>
+          <div class="job-when"><span lang="ru">май 2025&nbsp;— июл 2026</span><span lang="en">May 2025 – Jul 2026</span></div>
           <div>
             <h3>D2C Tech</h3>
             <p class="role" lang="ru">Старший мобильный разработчик</p><p class="role" lang="en">Senior Mobile Developer</p>
@@ -406,24 +422,24 @@
             <ul lang="ru">
               <li>С&nbsp;нуля разработал систему передачи грузов по&nbsp;QR-кодам и&nbsp;запустил её&nbsp;в&nbsp;разгар сезона, сопровождая переход всех пользователей.</li>
               <li>Печать QR-кодов на&nbsp;промышленном термопринтере GODEX: исследование, нативный Android-модуль для&nbsp;USB и&nbsp;BFF.</li>
-              <li>Звонки прямо из&nbsp;приложения на&nbsp;Voximplant и&nbsp;CallKeep&nbsp;— со&nbsp;скрытием личных номеров и&nbsp;записью разговоров.</li>
+              <li>Звонки прямо из&nbsp;приложения на&nbsp;Voximplant и&nbsp;CallKeep: со&nbsp;скрытием личных номеров и&nbsp;записью разговоров.</li>
               <li>Открытие шлагбаумов с&nbsp;экрана заказа по&nbsp;геолокации, финансовый раздел для&nbsp;исполнителей, перепроектирование модуля расписания.</li>
             </ul>
             <ul lang="en">
               <li>Built a QR-based cargo hand-over system from scratch and launched it at peak season, migrating every user to the new flow.</li>
               <li>QR printing on an industrial GODEX thermal printer: research, a native Android USB module and the BFF.</li>
-              <li>In-app calling with Voximplant and CallKeep&nbsp;— native call UI, hidden personal numbers, call recording.</li>
-              <li>Geo-aware barrier opening from the order screen, a finance section for workers, a redesigned scheduling module.</li>
+              <li>In-app calling with Voximplant and CallKeep: native call UI, hidden personal numbers, call recording.</li>
+              <li>Location-based gate opening from the order screen, a finance section for workers, a redesigned scheduling module.</li>
             </ul>
           </div>
         </article>
 
         <article class="job reveal">
-          <div class="job-when"><span lang="ru">январь 2025&nbsp;— май 2025</span><span lang="en">Jan 2025 – May 2025</span></div>
+          <div class="job-when"><span lang="ru">янв 2025&nbsp;— май 2025</span><span lang="en">Jan 2025 – May 2025</span></div>
           <div>
             <h3><span lang="ru">Ecom.tech (Самокат)</span><span lang="en">Ecom.tech (Samokat)</span></h3>
             <p class="role" lang="ru">Старший мобильный разработчик</p><p class="role" lang="en">Senior Mobile Developer</p>
-            <p class="ctx" lang="ru">Команда альтернативной логистики</p><p class="ctx" lang="en">New delivery types team</p>
+            <p class="ctx" lang="ru">Команда альтернативной логистики</p><p class="ctx" lang="en">Alternative logistics: new delivery types</p>
             <ul lang="ru">
               <li>Мобильные сценарии для&nbsp;запуска новых типов доставки.</li>
               <li>Карта доставки на&nbsp;Яндекс Картах, в&nbsp;том числе выбор пунктов выдачи.</li>
@@ -438,26 +454,26 @@
         </article>
 
         <article class="job reveal">
-          <div class="job-when"><span lang="ru">сентябрь 2023&nbsp;— январь 2025</span><span lang="en">Sep 2023 – Jan 2025</span></div>
+          <div class="job-when"><span lang="ru">сен 2023&nbsp;— янв 2025</span><span lang="en">Sep 2023 – Jan 2025</span></div>
           <div>
             <h3><span lang="ru">СберМаркет (Купер)</span><span lang="en">SberMarket (Kuper)</span></h3>
             <p class="role" lang="ru">Мобильный разработчик</p><p class="role" lang="en">Mobile Developer</p>
             <p class="ctx" lang="ru">Команда геймификации · корпоративный мессенджер</p><p class="ctx" lang="en">Gamification team · corporate messenger</p>
             <ul lang="ru">
               <li>Программы лояльности ритейлеров в&nbsp;приложении.</li>
-              <li>Механика целей в&nbsp;геймификации&nbsp;— от&nbsp;идеи до&nbsp;релиза.</li>
+              <li>Механика целей в&nbsp;геймификации: от&nbsp;идеи до&nbsp;релиза.</li>
               <li>Разработка корпоративного мессенджера и&nbsp;работа с&nbsp;техническим долгом.</li>
             </ul>
             <ul lang="en">
               <li>Retailer loyalty programs in the app.</li>
-              <li>Goals mechanics for gamification, from idea to release.</li>
-              <li>Built the corporate messenger and paid down tech debt.</li>
+              <li>Goal mechanics for gamification, from idea to release.</li>
+              <li>Worked on the corporate messenger and paid down its tech debt.</li>
             </ul>
           </div>
         </article>
 
         <article class="job reveal">
-          <div class="job-when"><span lang="ru">ноябрь 2021&nbsp;— сентябрь 2023</span><span lang="en">Nov 2021 – Sep 2023</span></div>
+          <div class="job-when"><span lang="ru">ноя 2021&nbsp;— сен 2023</span><span lang="en">Nov 2021 – Sep 2023</span></div>
           <div>
             <h3><span lang="ru">Фабрика информационных технологий</span><span lang="en">Fabrika IT</span></h3>
             <p class="role" lang="ru">Ведущий мобильный разработчик</p><p class="role" lang="en">Lead Mobile Developer</p>
@@ -479,7 +495,7 @@
         </article>
 
         <article class="job reveal">
-          <div class="job-when"><span lang="ru">июль 2021&nbsp;— октябрь 2021</span><span lang="en">Jul 2021 – Oct 2021</span></div>
+          <div class="job-when"><span lang="ru">июл 2021&nbsp;— окт 2021</span><span lang="en">Jul 2021 – Oct 2021</span></div>
           <div>
             <h3><span lang="ru">Ноорсофт</span><span lang="en">Noorsoft</span></h3>
             <p class="role" lang="ru">Разработчик</p><p class="role" lang="en">Developer</p>
@@ -522,11 +538,11 @@
         </div>
         <div class="skill">
           <h3 lang="ru">Качество и&nbsp;релизы</h3><h3 lang="en">Quality and releases</h3>
-          <div class="chips"><span class="chip">Jest</span><span class="chip">Detox</span><span class="chip" lang="ru">Свои ESLint-правила</span><span class="chip" lang="en">Custom ESLint rules</span><span class="chip">CI/CD</span><span class="chip">Fastlane</span><span class="chip" lang="ru">OTA-обновления</span><span class="chip" lang="en">OTA updates</span></div>
+          <div class="chips"><span class="chip">Jest</span><span class="chip">Detox</span><span class="chip" lang="ru">Свои ESLint-правила</span><span class="chip" lang="en">Custom ESLint rules</span><span class="chip">CI/CD</span><span class="chip">Fastlane</span><span class="chip" lang="ru">OTA&#8209;обновления</span><span class="chip" lang="en">OTA updates</span></div>
         </div>
         <div class="skill">
-          <h3 lang="ru">Вокруг</h3><h3 lang="en">Around it</h3>
-          <div class="chips"><span class="chip">Claude Code</span><span class="chip" lang="ru">AI-агенты</span><span class="chip" lang="en">AI agents</span><span class="chip">Sentry</span><span class="chip">AppMetrica</span><span class="chip">BFF</span><span class="chip">Node.js</span><span class="chip">REST API</span><span class="chip">Docker Compose</span></div>
+          <h3 lang="ru">Инструменты и&nbsp;бэкенд</h3><h3 lang="en">Tooling &amp; backend</h3>
+          <div class="chips"><span class="chip">Claude Code</span><span class="chip" lang="ru">AI&#8209;агенты</span><span class="chip" lang="en">AI agents</span><span class="chip">Sentry</span><span class="chip">AppMetrica</span><span class="chip">BFF</span><span class="chip">Node.js</span><span class="chip">REST API</span><span class="chip">Docker Compose</span></div>
         </div>
       </div>
 
@@ -552,7 +568,7 @@
     <div class="wrap">
       <p class="eyebrow"><span lang="ru">Контакты</span><span lang="en">Contact</span></p>
       <h2 class="reveal"><span lang="ru">Написать мне</span><span lang="en">Get in touch</span></h2>
-      <p class="lead" lang="ru">Поговорить о&nbsp;React Native, архитектуре или процессах разработки&nbsp;— быстрее всего отвечаю в&nbsp;Telegram.</p>
+      <p class="lead" lang="ru">Буду рад поговорить о&nbsp;React Native, архитектуре или процессах разработки. Быстрее всего отвечаю в&nbsp;Telegram.</p>
       <p class="lead" lang="en">Happy to talk React Native, architecture or engineering processes. Telegram is the fastest way to reach me.</p>
       <div class="contact-links reveal">
         <a class="contact-card" href="https://t.me/eugnazaroff" target="_blank" rel="noopener">
