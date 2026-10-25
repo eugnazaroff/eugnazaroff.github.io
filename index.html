@@ -179,6 +179,8 @@
   .work h3 { font-size: clamp(1.9rem, 3vw, 2.75rem); margin-bottom: 10px; letter-spacing: -0.03em; }
   .work .role { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
   .work .ctx { font-size: 16px; margin-bottom: 20px; }
+  .work .group { font-weight: 700; font-size: 15px; margin: 24px 0 10px; }
+  .work .ctx + .group { margin-top: 0; }
   .work ul { list-style: none; margin: 0; padding: 0; max-width: 68ch; display: grid; gap: 10px; }
   .work li { position: relative; padding-left: 26px; font-size: 17px; line-height: 1.55; }
   .work li::before { content: ""; position: absolute; left: 0; top: 0.78em; width: 14px; border-top: 1.5px solid var(--black); }
@@ -461,18 +463,39 @@
         <div>
           <h3>D2C Tech</h3>
           <p class="role" lang="ru">Старший мобильный разработчик</p><p class="role" lang="en">Senior Mobile Developer</p>
-          <p class="ctx" lang="ru">май 2025&nbsp;— июль 2026 · мобильная платформа для&nbsp;исполнителей</p><p class="ctx" lang="en">May 2025&nbsp;– July 2026 · mobile platform for field workers</p>
+          <p class="ctx" lang="ru">май 2025&nbsp;— июль 2026 · пять приложений для&nbsp;исполнителей, внешних партнёров и&nbsp;клиентов</p><p class="ctx" lang="en">May 2025&nbsp;– July 2026 · five apps for field workers, external partners and customers</p>
+          <p class="group"><span lang="ru">Пять мобильных приложений на&nbsp;React Native</span><span lang="en">Five React Native apps</span></p>
           <ul lang="ru">
-            <li>С&nbsp;нуля разработал систему передачи грузов по&nbsp;QR-кодам и&nbsp;запустил её&nbsp;в&nbsp;разгар сезона, сопровождая переход всех пользователей.</li>
-            <li>Печать QR-кодов на&nbsp;промышленном термопринтере GODEX: исследование, нативный Android-модуль для&nbsp;USB и&nbsp;BFF.</li>
-            <li>Звонки прямо из&nbsp;приложения на&nbsp;Voximplant и&nbsp;CallKeep: со&nbsp;скрытием личных номеров и&nbsp;записью разговоров.</li>
-            <li>Открытие шлагбаумов с&nbsp;экрана заказа по&nbsp;геолокации, финансовый раздел для&nbsp;исполнителей, перепроектирование модуля расписания.</li>
+            <li>Передача грузов по&nbsp;QR-кодам: сделал с&nbsp;нуля и&nbsp;запустил в&nbsp;разгар сезона, переведя на&nbsp;новый процесс всех пользователей.</li>
+            <li>Звонки из&nbsp;приложения на&nbsp;Voximplant со&nbsp;скрытием личных номеров и&nbsp;записью разговоров.</li>
+            <li>Открытие шлагбаумов по&nbsp;геолокации с&nbsp;экрана заказа.</li>
+            <li>Финансовый раздел и&nbsp;новый модуль расписания для&nbsp;исполнителей.</li>
           </ul>
           <ul lang="en">
-            <li>Built a QR-based cargo hand-over system from scratch and launched it at peak season, migrating every user to the new flow.</li>
-            <li>QR printing on an industrial GODEX thermal printer: research, a native Android USB module and the BFF.</li>
-            <li>In-app calling with Voximplant and CallKeep: native call UI, hidden personal numbers, call recording.</li>
-            <li>Location-based gate opening from the order screen, a finance section for workers, a redesigned scheduling module.</li>
+            <li>QR-based cargo hand-over: built from scratch and launched at peak season, moving every user to the new flow.</li>
+            <li>In-app calling with Voximplant, with hidden personal numbers and call recording.</li>
+            <li>Location-based gate opening from the order screen.</li>
+            <li>A finance section and a new scheduling module for field workers.</li>
+          </ul>
+          <p class="group"><span lang="ru">Нативные модули</span><span lang="en">Native modules</span></p>
+          <ul lang="ru">
+            <li>Печать QR-кодов на&nbsp;промышленном USB-принтере GODEX.</li>
+            <li>Звонилка на&nbsp;CallKeep с&nbsp;системным экраном звонка.</li>
+            <li>Голосовое управление с&nbsp;распознаванием речи.</li>
+          </ul>
+          <ul lang="en">
+            <li>QR printing on an industrial GODEX USB printer.</li>
+            <li>A dialer built on CallKeep with the system call screen.</li>
+            <li>Voice control with speech recognition.</li>
+          </ul>
+          <p class="group"><span lang="ru">Пять BFF на&nbsp;NestJS, по&nbsp;одному на&nbsp;приложение</span><span lang="en">Five NestJS BFFs, one per app</span></p>
+          <ul lang="ru">
+            <li>Для&nbsp;каждого приложения свой BFF: сводил данные из&nbsp;микросервисов на&nbsp;Go в&nbsp;API под&nbsp;нужды этого приложения.</li>
+            <li>Генерация данных для&nbsp;печати QR-кодов.</li>
+          </ul>
+          <ul lang="en">
+            <li>Each app had its own BFF, aggregating data from the Go microservices into an API built for that app.</li>
+            <li>Generating the data for QR printing.</li>
           </ul>
         </div>
       </article>
@@ -618,7 +641,7 @@
         <div class="row"><b lang="ru">Архитектура</b><b lang="en">Architecture</b><span lang="ru">Clean Architecture, DDD, System Design, декларативный UI</span><span lang="en">Clean Architecture, DDD, System Design, declarative UI</span></div>
         <div class="row"><b lang="ru">Стейт и&nbsp;навигация</b><b lang="en">State and navigation</b><span>MobX, Redux, React Navigation</span></div>
         <div class="row"><b lang="ru">Качество и&nbsp;релизы</b><b lang="en">Quality and releases</b><span lang="ru">Jest, Detox, свои ESLint-правила, CI/CD, Fastlane, OTA&#8209;обновления</span><span lang="en">Jest, Detox, custom ESLint rules, CI/CD, Fastlane, OTA updates</span></div>
-        <div class="row"><b lang="ru">Инструменты и&nbsp;бэкенд</b><b lang="en">Tooling and backend</b><span lang="ru">Claude Code, AI&#8209;агенты, Sentry, AppMetrica, BFF, Node.js, REST API, Docker Compose</span><span lang="en">Claude Code, AI agents, Sentry, AppMetrica, BFF, Node.js, REST API, Docker Compose</span></div>
+        <div class="row"><b lang="ru">Инструменты и&nbsp;бэкенд</b><b lang="en">Tooling and backend</b><span lang="ru">Claude Code, AI&#8209;агенты, Sentry, AppMetrica, BFF, Node.js, NestJS, REST API, Docker Compose</span><span lang="en">Claude Code, AI agents, Sentry, AppMetrica, BFF, Node.js, NestJS, REST API, Docker Compose</span></div>
       </div>
     </div>
   </section>
