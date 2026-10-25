@@ -98,10 +98,6 @@
   /* таблицы-фото и подписи */
   figure { margin: 0; }
   .plate img { width: 100%; height: 100%; object-fit: cover; }
-  .cap { font: 500 14px/1.4 var(--font); }
-  .cap b { font-weight: 800; }
-  .chip { position: absolute; left: 24px; bottom: 20px; z-index: 1; background: var(--white); color: var(--black); padding: 4px 8px; }
-  .hero-cap { display: none; }
 
   /* табл. 1 */
   .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - var(--bar)); border-bottom: 1px solid var(--black); }
@@ -180,7 +176,6 @@
   .bio { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 0 72px; align-items: end; }
   .bio .plate { aspect-ratio: 2 / 3; }
   .bio .plate img { object-position: 50% 20%; }
-  .bio .cap { margin-top: 10px; }
 
   /* контакты */
   .contact { padding: 120px 0 0; }
@@ -199,7 +194,6 @@
   .links a:hover { background: var(--white); color: var(--black); padding-left: 16px; padding-right: 16px; }
   .contact .plate { margin-left: 72px; }
   .contact .plate img { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
-  .contact .plate .cap { padding: 10px 0 0; }
   footer { margin-top: 96px; border-top: 1px solid var(--white); }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 20px; padding-bottom: 28px; font-size: 15px; }
   footer a { text-decoration: none; }
@@ -243,9 +237,7 @@
     .hero, .about, .principles, .works-head, .contact-grid, .bio { grid-template-columns: minmax(0, 1fr); }
     .hero { min-height: 0; }
     .hero .plate { min-height: 0; height: calc(100svh - 176px); max-height: 150vw; }
-    .hero .chip { display: none; }
     @media (max-width: 380px) { .hero .plate { height: calc(100svh - 228px); } .hero .title { font-size: 1.1rem; } }
-    .hero-cap { display: block; }
     .hero-text { padding: 14px var(--gutter) 40px; }
     .hero h1 { font-size: clamp(2.5rem, 12vw, 3.25rem); margin: 8px 0 10px; }
     .hero .title { margin-bottom: 18px; }
@@ -318,14 +310,12 @@
 
 <main id="main">
 
-  <!-- Табл. 1 -->
+  <!-- Первый экран -->
   <section class="hero" id="top">
     <figure class="plate">
       <img src="img/hero.jpg" srcset="img/hero-720.jpg 720w, img/hero.jpg 1067w" sizes="(max-width: 760px) 100vw, 50vw" alt="Евгений Назаров / Evgeny Nazarov" width="1067" height="1600" fetchpriority="high">
-      <figcaption class="cap chip"><span lang="ru"><b>Табл.&nbsp;1.</b> Портрет, 2026</span><span lang="en"><b>Plate&nbsp;1.</b> Portrait, 2026</span></figcaption>
     </figure>
     <div class="hero-text">
-      <p class="cap hero-cap" aria-hidden="true"><span lang="ru"><b>Табл.&nbsp;1.</b> Портрет, 2026</span><span lang="en"><b>Plate&nbsp;1.</b> Portrait, 2026</span></p>
       <h1><span lang="ru">Евгений<br> Назаров</span><span lang="en">Evgeny<br> Nazarov</span></h1>
       <p class="title">Senior / Lead React Native Developer</p>
       <p class="lede" lang="ru">Делаю мобильные приложения на&nbsp;React Native, от&nbsp;архитектуры до&nbsp;релиза. Люблю крутые фичи, продуманный UX и&nbsp;чистый код.</p>
@@ -358,7 +348,6 @@
     </div>
     <figure class="plate">
       <img src="img/plate-5.jpg" srcset="img/plate-5-720.jpg 720w, img/plate-5.jpg 1067w" sizes="(max-width: 760px) 100vw, 45vw" alt="" width="1067" height="1600" loading="lazy">
-      <figcaption class="cap chip"><span lang="ru"><b>Табл.&nbsp;2.</b> В&nbsp;тени</span><span lang="en"><b>Plate&nbsp;2.</b> In shadow</span></figcaption>
     </figure>
   </section>
 
@@ -366,7 +355,6 @@
   <section class="principles">
     <figure class="plate">
       <img src="img/plate-2.jpg" srcset="img/plate-2-720.jpg 720w, img/plate-2.jpg 1067w" sizes="(max-width: 760px) 100vw, 45vw" alt="" width="1067" height="1600" loading="lazy">
-      <figcaption class="cap chip"><span lang="ru"><b>Табл.&nbsp;3.</b> Анфас</span><span lang="en"><b>Plate&nbsp;3.</b> Front</span></figcaption>
     </figure>
     <div class="principles-text">
       <div class="principle">
@@ -393,7 +381,6 @@
     <div class="works-head">
       <figure class="plate">
         <img src="img/plate-3.jpg" srcset="img/plate-3-720.jpg 720w, img/plate-3.jpg 1067w" sizes="(max-width: 760px) 100vw, 50vw" alt="" width="1067" height="1600" loading="lazy">
-        <figcaption class="cap chip"><span lang="ru"><b>Табл.&nbsp;4.</b> Скрестив руки</span><span lang="en"><b>Plate&nbsp;4.</b> Arms crossed</span></figcaption>
       </figure>
       <div class="works-head-text">
         <h2><span lang="ru">Опыт</span><span lang="en">Experience</span></h2>
@@ -555,7 +542,6 @@
       </div>
       <figure>
         <div class="plate"><img src="img/plate-4.jpg" srcset="img/plate-4-720.jpg 720w, img/plate-4.jpg 1067w" sizes="(max-width: 760px) 100vw, 40vw" alt="" width="1067" height="1600" loading="lazy"></div>
-        <figcaption class="cap"><span lang="ru"><b>Табл.&nbsp;5.</b> В&nbsp;полный рост</span><span lang="en"><b>Plate&nbsp;5.</b> Full length</span></figcaption>
       </figure>
     </div>
   </section>
@@ -575,7 +561,6 @@
       </div>
       <figure class="plate">
         <img src="img/plate-6.jpg" srcset="img/plate-6-720.jpg 720w, img/plate-6.jpg 1067w" sizes="(max-width: 760px) 100vw, 40vw" alt="" width="1067" height="1600" loading="lazy">
-        <figcaption class="cap"><span lang="ru"><b>Табл.&nbsp;6.</b> С&nbsp;улыбкой</span><span lang="en"><b>Plate&nbsp;6.</b> Smiling</span></figcaption>
       </figure>
     </div>
     <footer>
