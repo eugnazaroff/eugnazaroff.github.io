@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="ru" data-lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // До отрисовки: помечаем, что JS есть, и сразу ставим язык, чтобы не было мигания.
+  (function () {
+    var root = document.documentElement;
+    root.classList.add('js');
+    var lang = null;
+    try { lang = new URLSearchParams(location.search).get('lang'); } catch (e) {}
+    if (lang !== 'ru' && lang !== 'en') { try { lang = localStorage.getItem('lang'); } catch (e) {} }
+    if (lang === 'en') { root.setAttribute('data-lang', 'en'); root.setAttribute('lang', 'en'); }
+  })();
+</script>
+<title>Евгений Назаров — Senior / Lead React Native Developer</title>
+<meta name="description" content="Senior / Lead React Native разработчик. Мобильные приложения от архитектуры до релиза: продукт, UX и чистый код.">
+<meta name="theme-color" content="#f6f4f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Евгений Назаров — Senior / Lead React Native Developer">
+<meta property="og:description" content="Мобильные приложения на React Native от архитектуры до релиза: продукт, UX и чистый код.">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://eugnazarov.dev/">
+<meta property="og:image" content="https://eugnazarov.dev/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://eugnazarov.dev/img/og.jpg">
+<link rel="canonical" href="https://eugnazarov.dev/">
+<link rel="alternate" hreflang="ru" href="https://eugnazarov.dev/">
+<link rel="alternate" hreflang="en" href="https://eugnazarov.dev/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://eugnazarov.dev/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Евгений Назаров",
+  "alternateName": "Evgeny Nazarov",
+  "jobTitle": "Senior React Native Developer",
+  "email": "mailto:eugnazaroff@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Саратов", "addressCountry": "RU" },
+  "sameAs": ["https://t.me/eugnazaroff", "https://www.linkedin.com/in/evgeniy-nazarov-168234113/"]
+}
+</script>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f4f0;
+    --surface: #ffffff;
+    --ink: #141416;
+    --muted: #5d5d66;
+    --faint: #6b6b73;
+    --line: #e4e0d9;
+    --accent: #c45834;
+    --accent-text: #a54527;
+    --radius: 6px;
+    --wrap: 1160px;
+    --gutter: 24px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 17px/1.6 Manrope, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  html[data-lang="ru"] body [lang="en"],
+  html[data-lang="en"] body [lang="ru"] { display: none !important; }
+
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 4px; }
+  img { display: block; max-width: 100%; height: auto; }
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+  .eyebrow {
+    font: 500 13px/1.4 "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin: 0 0 18px;
+  }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.025em; line-height: 1.08; }
+  h2 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; }
+  h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+  section { padding: 120px 0; }
+  .section-head { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; margin-bottom: 64px; align-items: end; }
+  .section-head p { margin: 0; color: var(--muted); max-width: 620px; }
+
+  /* header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(246, 244, 240, .94);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  header.scrolled { border-bottom-color: var(--line); }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 24px; }
+  .logo { font-weight: 800; text-decoration: none; letter-spacing: -0.02em; font-size: 17px; white-space: nowrap; }
+  .logo .dot { color: var(--accent); }
+  nav { display: flex; gap: 28px; font-size: 15px; font-weight: 500; }
+  nav a { text-decoration: none; color: var(--muted); transition: color .15s; }
+  nav a:hover { color: var(--ink); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+  .lang button {
+    border: 0; background: transparent; color: var(--muted); cursor: pointer;
+    font: 500 12px/1 "JetBrains Mono", monospace; padding: 7px 10px; border-radius: 999px;
+  }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+  /* hero */
+  .hero { padding: 72px 0 96px; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 64px; align-items: center; }
+  .hero h1 { font-size: clamp(52px, 8vw, 104px); font-weight: 800; letter-spacing: -0.045em; line-height: .95; margin-bottom: 28px; }
+  .lede { font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: var(--muted); max-width: 560px; margin: 0 0 32px; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; color: var(--faint); font-size: 15px; margin-bottom: 40px; }
+  .meta span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 9px; vertical-align: 2px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 15px 24px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 16px; border: 1px solid var(--ink);
+    transition: transform .15s, background .15s, color .15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-ghost { color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+  .btn svg { width: 18px; height: 18px; flex: none; }
+  .hero-photo { position: relative; margin: 0; }
+  .hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 18%; border-radius: var(--radius); }
+  .hero-photo figcaption {
+    position: absolute; left: -28px; bottom: 36px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px 18px; font-size: 14px; line-height: 1.4; box-shadow: 0 12px 32px rgba(20,20,22,.08);
+  }
+  .hero-photo figcaption b { display: block; font-size: 15px; }
+  .hero-photo figcaption span { color: var(--muted); }
+
+  /* stats */
+  .stats { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .stat { padding: 36px 28px 36px 0; }
+  .stat + .stat { padding-left: 28px; border-left: 1px solid var(--line); }
+  .stat b { display: block; font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 12px; }
+  .stat span { color: var(--muted); font-size: 15px; line-height: 1.45; display: block; }
+
+  /* about */
+  .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
+  .about-grid img { border-radius: var(--radius); aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 60%; width: 100%; }
+  .about-text h2 { margin-bottom: 32px; }
+  .about-text p { font-size: 19px; line-height: 1.65; margin: 0 0 22px; }
+  .about-text p.story { border-left: 2px solid var(--accent); padding-left: 20px; color: var(--muted); }
+  .do-list { list-style: none; padding: 0; margin: 36px 0 0; border-top: 1px solid var(--line); }
+  .do-list li { display: grid; grid-template-columns: 28px 1fr; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 16px; color: var(--muted); }
+  .do-list li::before { content: "→"; color: var(--accent); font-family: "JetBrains Mono", monospace; }
+  .do-list li b { color: var(--ink); font-weight: 600; }
+  .values { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 80px; }
+  .value { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px 34px; }
+  .value .eyebrow { margin-bottom: 14px; }
+  .value h3 { font-size: clamp(22px, 2.2vw, 28px); letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 14px; }
+  .value p:not(.eyebrow) { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.6; }
+
+  /* experience */
+  #experience { border-top: 1px solid var(--line); }
+  .jobs { border-top: 1px solid var(--line); }
+  .job { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 40px 0; border-bottom: 1px solid var(--line); }
+  .job-when { color: var(--faint); font: 500 14px/1.5 "JetBrains Mono", monospace; padding-top: 4px; }
+  .job-when .now { color: var(--accent-text); }
+  .job h3 { font-size: 24px; margin-bottom: 4px; }
+  .job .role { color: var(--muted); margin: 0 0 4px; font-weight: 500; }
+  .job .ctx { color: var(--faint); font-size: 15px; margin: 0 0 16px; }
+  .job ul { margin: 0; padding: 0; list-style: none; }
+  .job li { position: relative; padding: 5px 0 5px 22px; color: var(--ink); font-size: 16px; line-height: 1.55; }
+  .job li::before { content: ""; position: absolute; left: 0; top: 16px; width: 10px; height: 1px; background: var(--accent); }
+  .job-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-weight: 600; font-size: 15px; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+  .job-link:hover { color: var(--accent-text); }
+  .job-links { display: flex; flex-wrap: wrap; gap: 0 28px; }
+
+  /* skills */
+  #skills { padding-top: 0; }
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .skill { background: var(--bg); padding: 30px 28px; }
+  .skill h3 { font-size: 15px; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-bottom: 16px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .edu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; margin-top: 80px; max-width: 820px; }
+  .edu h3 { font-size: 15px; font-weight: 600; color: var(--faint); letter-spacing: 0; margin-bottom: 14px; }
+  .edu p { margin: 0 0 6px; font-size: 16px; }
+  .edu p.sub { color: var(--muted); font-size: 15px; }
+
+  /* contact */
+  .contact { padding: 140px 0 120px; border-top: 1px solid var(--line); }
+  .contact h2 { font-size: clamp(44px, 7vw, 92px); letter-spacing: -0.045em; line-height: .98; margin-bottom: 28px; max-width: 900px; }
+  .contact p.lead { color: var(--muted); font-size: 20px; max-width: 560px; margin: 0 0 44px; }
+  .contact-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 980px) { .contact-links { grid-template-columns: repeat(2, 1fr); } }
+  .contact-card {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 24px 26px; text-decoration: none; transition: border-color .15s, transform .15s;
+  }
+  .contact-card:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .contact-card small { display: block; color: var(--faint); font-size: 13px; margin-bottom: 4px; font-family: "JetBrains Mono", monospace; font-weight: 500; }
+  .contact-card b { font-size: 18px; font-weight: 600; word-break: break-all; }
+  .contact-card .arrow { color: var(--accent); font-size: 22px; flex: none; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--faint); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { text-decoration: none; }
+
+  /* reveal: только когда JS есть, иначе всё видно сразу */
+  .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+  }
+  @media print {
+    .js .reveal { opacity: 1 !important; transform: none !important; }
+    header { position: static; }
+    .lang, .ctas svg { display: none; }
+    section, .contact { padding: 40px 0; }
+  }
+
+  /* responsive */
+  @media (max-width: 980px) {
+    nav { display: none; }
+    section { padding: 88px 0; }
+    .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 44px; }
+    .hero-photo { max-width: 520px; }
+    .hero-photo figcaption { left: 16px; }
+    .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 44px; }
+    .skills { grid-template-columns: repeat(2, 1fr); }
+    .about-grid img { max-width: 520px; }
+  }
+  @media (max-width: 640px) {
+    :root { --gutter: 16px; }
+    body { font-size: 16px; }
+    section { padding: 72px 0; }
+    .hero { padding: 40px 0 64px; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat, .stat + .stat { display: flex; align-items: center; gap: 18px; padding: 20px 0; border-left: 0; }
+    .stat + .stat { border-top: 1px solid var(--line); }
+    .stat b { margin: 0; min-width: 72px; font-size: 36px; }
+    .stat span { font-size: 15px; }
+    .skills, .edu, .contact-links, .values { grid-template-columns: 1fr; }
+    .values { margin-top: 56px; }
+    .value { padding: 28px 22px; }
+    .edu { gap: 32px; margin-top: 56px; }
+    .job { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; }
+    .about-text p { font-size: 17px; }
+    .btn { padding: 14px 20px; font-size: 15px; }
+    .contact { padding: 96px 0 80px; }
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap bar">
+    <a class="logo" href="#top"><span lang="ru">Евгений Назаров</span><span lang="en">Evgeny Nazarov</span><span class="dot">.</span></a>
+    <nav>
+      <a href="#about"><span lang="ru">Обо мне</span><span lang="en">About</span></a>
+      <a href="#experience"><span lang="ru">Опыт</span><span lang="en">Experience</span></a>
+      <a href="#skills"><span lang="ru">Навыки</span><span lang="en">Skills</span></a>
+      <a href="#contact"><span lang="ru">Контакты</span><span lang="en">Contact</span></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="ru" aria-pressed="true">RU</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Senior / Lead React Native Developer</p>
+        <h1><span lang="ru">Евгений<br>Назаров</span><span lang="en">Evgeny<br>Nazarov</span></h1>
+        <p class="lede" lang="ru">Делаю мобильные приложения на&nbsp;React Native&nbsp;— от&nbsp;архитектуры до&nbsp;релиза. Люблю <strong>крутые фичи, продуманный UX и&nbsp;чистый код</strong>.</p>
+        <p class="lede" lang="en">I build mobile apps with React Native&nbsp;— from architecture to release. I love <strong>great features, thoughtful UX and clean code</strong>.</p>
+        <div class="meta">
+          <span lang="ru">5+ лет в&nbsp;мобильной разработке</span><span lang="en">5+ years in mobile</span>
+          <span lang="ru">Саратов · удалённо</span><span lang="en">Saratov, Russia (UTC+4) · remote</span>
+          <span>English C1</span>
+        </div>
+        <div class="ctas">
+          <a class="btn btn-primary" href="https://t.me/eugnazaroff" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.3-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.9c.9-.3 1.6.2 1.4 1.4z"/></svg>
+            Telegram
+          </a>
+          <a class="btn btn-ghost" href="mailto:eugnazaroff@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+            eugnazaroff@gmail.com
+          </a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/hero.jpg" srcset="img/hero-720.jpg 720w, img/hero.jpg 1067w" sizes="(max-width: 980px) min(520px, 100vw), 460px" alt="Евгений Назаров / Evgeny Nazarov" width="1067" height="1600" fetchpriority="high">
+        <figcaption>
+          <b lang="ru">Сейчас&nbsp;— Senior Mobile</b><b lang="en">Now&nbsp;— Senior Mobile</b>
+          <span lang="ru">«Стобалльный репетитор», EdTech</span><span lang="en">Stoballny Repetitor, EdTech</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat reveal"><b>5+</b><span lang="ru">лет в&nbsp;мобильной разработке на&nbsp;React Native</span><span lang="en">years building mobile apps with React Native</span></div>
+      <div class="stat reveal"><b>3</b><span lang="ru">приложения вывел с&nbsp;нуля до&nbsp;продакшна</span><span lang="en">apps taken from zero to production</span></div>
+      <div class="stat reveal"><b>6</b><span lang="ru">компаний, в&nbsp;том числе Самокат и&nbsp;Купер</span><span lang="en">companies, including Samokat and Kuper</span></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <img class="reveal" src="img/about.jpg" srcset="img/about-720.jpg 720w, img/about.jpg 933w" sizes="(max-width: 980px) min(520px, 100vw), 420px" alt="" width="933" height="1400" loading="lazy">
+      <div class="about-text reveal">
+        <h2><span lang="ru">Обо мне</span><span lang="en">About</span></h2>
+        <p class="story" lang="ru">По&nbsp;образованию я&nbsp;хоровой дирижёр и&nbsp;художественный руководитель&nbsp;— и&nbsp;это неожиданно пригодилось в&nbsp;разработке. Работа дирижёра&nbsp;— чтобы десятки голосов звучали как&nbsp;один. В&nbsp;разработке я&nbsp;делаю то же: выстраиваю архитектуру и&nbsp;правила, при&nbsp;которых код одинаково хорош, кто бы его&nbsp;ни&nbsp;писал&nbsp;— я, коллега или AI&#8209;агент.</p>
+        <p class="story" lang="en">By training I’m a choral conductor and choir director&nbsp;— and it turned out to be surprisingly useful in engineering. A conductor’s job is to make dozens of voices sound as one. In engineering I do the same: I build the architecture and rules that keep code equally good no matter who writes it&nbsp;— me, a teammate or an AI agent.</p>
+        <p lang="ru">Веду фичи целиком: проектирование, мобильный клиент, BFF, интеграции, запуск в&nbsp;продакшн и&nbsp;поддержка после релиза. Пишу нативные модули на&nbsp;Kotlin и&nbsp;Swift, провожу код-ревью и&nbsp;технические собеседования, наставляю разработчиков.</p>
+        <p lang="en">I own features end to end: design, the mobile client, BFF, integrations, production launch and post-release support. I write native modules in Kotlin and Swift, run code reviews and technical interviews, and mentor engineers.</p>
+        <ul class="do-list">
+          <li lang="ru"><span><b>Запуск с&nbsp;нуля</b>&nbsp;— пустой репозиторий → приложение в&nbsp;сторах</span></li>
+          <li lang="en"><span><b>Zero to store</b>&nbsp;— empty repo → app in the stores</span></li>
+          <li lang="ru"><span><b>Архитектура</b>&nbsp;— Clean Architecture, DDD, System Design</span></li>
+          <li lang="en"><span><b>Architecture</b>&nbsp;— Clean Architecture, DDD, System Design</span></li>
+          <li lang="ru"><span><b>Качество</b>&nbsp;— Jest, Detox, правила под автопроверкой</span></li>
+          <li lang="en"><span><b>Quality</b>&nbsp;— Jest, Detox, machine-checked rules</span></li>
+          <li lang="ru"><span><b>Релизы</b>&nbsp;— CI/CD, Fastlane, OTA-обновления</span></li>
+          <li lang="en"><span><b>Releases</b>&nbsp;— CI/CD, Fastlane, OTA updates</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap values">
+      <div class="value reveal">
+        <p class="eyebrow"><span lang="ru">Продукт</span><span lang="en">Product</span></p>
+        <h3 lang="ru">Меня драйвят крутые фичи</h3><h3 lang="en">Great features drive me</h3>
+        <p lang="ru">Мне важны продуманный UX, красивый дизайн и&nbsp;качество продукта до&nbsp;мелочей&nbsp;— а&nbsp;не&nbsp;просто закрытая задача.</p>
+        <p lang="en">Thoughtful UX, beautiful design and product quality down to the details matter to me&nbsp;— not just a closed ticket.</p>
+      </div>
+      <div class="value reveal">
+        <p class="eyebrow"><span lang="ru">Код</span><span lang="en">Code</span></p>
+        <h3 lang="ru">Чисто&nbsp;— и&nbsp;при&nbsp;этом быстро</h3><h3 lang="en">Clean&nbsp;— and still fast</h3>
+        <p lang="ru">Трепетно отношусь к&nbsp;чистоте кода, но&nbsp;знаю, как&nbsp;сделать быстро без&nbsp;потери качества и&nbsp;не&nbsp;копить техдолг: правила проверяют линтер и&nbsp;тесты, нарушение не&nbsp;пройдёт коммит, а&nbsp;долг записан в&nbsp;реестре, а&nbsp;не&nbsp;растёт незаметно.</p>
+        <p lang="en">I care deeply about clean code, yet I know how to ship fast without losing quality or piling up tech debt: linters and tests enforce the rules, a violation can’t be committed, and debt lives in a register instead of quietly growing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2><span lang="ru">Опыт</span><span lang="en">Experience</span></h2>
+        <p lang="ru">Продуктовые команды, логистика, EdTech и&nbsp;госпроекты. Везде&nbsp;— React Native и&nbsp;ответственность за&nbsp;результат, а&nbsp;не&nbsp;только за&nbsp;код.</p>
+        <p lang="en">Product teams, logistics, EdTech and government projects. React Native everywhere&nbsp;— and ownership of outcomes, not just code.</p>
+      </div>
+      <div class="jobs">
+        <article class="job reveal">
+          <div class="job-when"><span lang="ru">июль 2026&nbsp;— <span class="now">сейчас</span></span><span lang="en">Jul 2026 – <span class="now">now</span></span></div>
+          <div>
+            <h3><span lang="ru">Стобалльный репетитор</span><span lang="en">Stoballny Repetitor</span></h3>
+            <p class="role">Senior Mobile Developer</p>
+            <p class="ctx" lang="ru">EdTech · подготовка к&nbsp;ЕГЭ и&nbsp;ОГЭ · весь мобильный цикл</p><p class="ctx" lang="en">EdTech · exam preparation · the whole mobile cycle</p>
+            <ul lang="ru">
+              <li>С&nbsp;нуля в&nbsp;одиночку разработал приложение «Стобалльный банк»&nbsp;— тренажёр для&nbsp;подготовки к&nbsp;ЕГЭ и&nbsp;ОГЭ&nbsp;— и&nbsp;за&nbsp;2 месяца вывел его&nbsp;в&nbsp;сторы.</li>
+              <li>Написал собственный декларативный фреймворк поверх React Native&nbsp;— на&nbsp;нём собрано всё приложение.</li>
+              <li>Выстроил AI-first процесс: AI-агенты пишут код по&nbsp;спецификациям, а&nbsp;я&nbsp;проектирую архитектуру, пишу правила (80+, проверяются автоматически), делаю ревью и&nbsp;приёмку.</li>
+              <li>Вместе с&nbsp;DevOps сделал собственную систему OTA-обновлений: исправления доходят до&nbsp;пользователей без&nbsp;ревью сторов&nbsp;— быстрее, чем релиз на&nbsp;вебе.</li>
+              <li>Автоматизировал релизы: AI-агент сам определяет следующий шаг, собирает сборку, готовит тест-кейсы и&nbsp;пост в&nbsp;рабочий чат.</li>
+            </ul>
+            <ul lang="en">
+              <li>Built the “Stoballny Bank” exam-prep app from scratch, solo, and shipped it to the stores in 2 months.</li>
+              <li>Wrote my own declarative framework on top of React Native&nbsp;— the whole app is built on it.</li>
+              <li>Set up an AI-first process: AI agents write code from specs, while I own the architecture, the 80+ machine-checked rules, review and sign-off.</li>
+              <li>Built an in-house OTA update system with DevOps: fixes reach users without store review&nbsp;— faster than a web release.</li>
+              <li>Automated releases: an AI agent works out the next step, makes the build, prepares test cases and posts to the team chat.</li>
+            </ul>
+            <a class="job-link" href="https://www.rustore.ru/catalog/app/ru.stoballov.freemium" target="_blank" rel="noopener"><span lang="ru">Приложение в&nbsp;RuStore</span><span lang="en">The app on RuStore</span> ↗</a>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-when"><span lang="ru">май 2025&nbsp;— июль 2026</span><span lang="en">May 2025 – Jul 2026</span></div>
+          <div>
+            <h3>D2C Tech</h3>
+            <p class="role" lang="ru">Старший мобильный разработчик</p><p class="role" lang="en">Senior Mobile Developer</p>
+            <p class="ctx" lang="ru">Мобильная платформа для&nbsp;исполнителей</p><p class="ctx" lang="en">Mobile platform for field workers</p>
+            <ul lang="ru">
+              <li>С&nbsp;нуля разработал систему передачи грузов по&nbsp;QR-кодам и&nbsp;запустил её&nbsp;в&nbsp;разгар сезона, сопровождая переход всех пользователей.</li>
+              <li>Печать QR-кодов на&nbsp;промышленном термопринтере GODEX: исследование, нативный Android-модуль для&nbsp;USB и&nbsp;BFF.</li>
+              <li>Звонки прямо из&nbsp;приложения на&nbsp;Voximplant и&nbsp;CallKeep&nbsp;— со&nbsp;скрытием личных номеров и&nbsp;записью разговоров.</li>
+              <li>Открытие шлагбаумов с&nbsp;экрана заказа по&nbsp;геолокации, финансовый раздел для&nbsp;исполнителей, перепроектирование модуля расписания.</li>
+            </ul>
+            <ul lang="en">
+              <li>Built a QR-based cargo hand-over system from scratch and launched it at peak season, migrating every user to the new flow.</li>
+              <li>QR printing on an industrial GODEX thermal printer: research, a native Android USB module and the BFF.</li>
+              <li>In-app calling with Voximplant and CallKeep&nbsp;— native call UI, hidden personal numbers, call recording.</li>
+              <li>Geo-aware barrier opening from the order screen, a finance section for workers, a redesigned scheduling module.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-when"><span lang="ru">январь 2025&nbsp;— май 2025</span><span lang="en">Jan 2025 – May 2025</span></div>
+          <div>
+            <h3><span lang="ru">Ecom.tech (Самокат)</span><span lang="en">Ecom.tech (Samokat)</span></h3>
+            <p class="role" lang="ru">Старший мобильный разработчик</p><p class="role" lang="en">Senior Mobile Developer</p>
+            <p class="ctx" lang="ru">Команда альтернативной логистики</p><p class="ctx" lang="en">New delivery types team</p>
+            <ul lang="ru">
+              <li>Мобильные сценарии для&nbsp;запуска новых типов доставки.</li>
+              <li>Карта доставки на&nbsp;Яндекс Картах, в&nbsp;том числе выбор пунктов выдачи.</li>
+              <li>Проектирование технических решений, декомпозиция задач, код-ревью.</li>
+            </ul>
+            <ul lang="en">
+              <li>Mobile flows for launching new delivery types.</li>
+              <li>The delivery map on Yandex Maps, including pickup point selection.</li>
+              <li>Technical design, task breakdown, code review.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-when"><span lang="ru">сентябрь 2023&nbsp;— январь 2025</span><span lang="en">Sep 2023 – Jan 2025</span></div>
+          <div>
+            <h3><span lang="ru">СберМаркет (Купер)</span><span lang="en">SberMarket (Kuper)</span></h3>
+            <p class="role" lang="ru">Мобильный разработчик</p><p class="role" lang="en">Mobile Developer</p>
+            <p class="ctx" lang="ru">Команда геймификации · корпоративный мессенджер</p><p class="ctx" lang="en">Gamification team · corporate messenger</p>
+            <ul lang="ru">
+              <li>Программы лояльности ритейлеров в&nbsp;приложении.</li>
+              <li>Механика целей в&nbsp;геймификации&nbsp;— от&nbsp;идеи до&nbsp;релиза.</li>
+              <li>Разработка корпоративного мессенджера и&nbsp;работа с&nbsp;техническим долгом.</li>
+            </ul>
+            <ul lang="en">
+              <li>Retailer loyalty programs in the app.</li>
+              <li>Goals mechanics for gamification, from idea to release.</li>
+              <li>Built the corporate messenger and paid down tech debt.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-when"><span lang="ru">ноябрь 2021&nbsp;— сентябрь 2023</span><span lang="en">Nov 2021 – Sep 2023</span></div>
+          <div>
+            <h3><span lang="ru">Фабрика информационных технологий</span><span lang="en">Fabrika IT</span></h3>
+            <p class="role" lang="ru">Ведущий мобильный разработчик</p><p class="role" lang="en">Lead Mobile Developer</p>
+            <p class="ctx" lang="ru">B2G: образование, спорт, туризм, культура</p><p class="ctx" lang="en">B2G: education, sport, tourism, culture</p>
+            <ul lang="ru">
+              <li>Вывел в&nbsp;продакшн с&nbsp;нуля «Виртуальную школу».</li>
+              <li>Архитектура мобильных приложений, интеграция с&nbsp;Apple HealthKit и&nbsp;Google Health Connect.</li>
+              <li>Код-ревью, оценка и&nbsp;декомпозиция задач, технические собеседования.</li>
+            </ul>
+            <ul lang="en">
+              <li>Took “Virtual School” from zero to production.</li>
+              <li>Mobile architecture, Apple HealthKit and Google Health Connect integration.</li>
+              <li>Code review, estimation and breakdown, technical interviews.</li>
+            </ul>
+            <div class="job-links">
+              <a class="job-link" href="https://apps.apple.com/ru/app/%D0%B8%D1%81%D0%BE%D1%83-%D0%B2%D0%B8%D1%80%D1%82%D1%83%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D1%88%D0%BA%D0%BE%D0%BB%D0%B0/id1435152479" target="_blank" rel="noopener"><span lang="ru">«Виртуальная школа» в&nbsp;App Store</span><span lang="en">Virtual School on the App Store</span> ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="job reveal">
+          <div class="job-when"><span lang="ru">июль 2021&nbsp;— октябрь 2021</span><span lang="en">Jul 2021 – Oct 2021</span></div>
+          <div>
+            <h3><span lang="ru">Ноорсофт</span><span lang="en">Noorsoft</span></h3>
+            <p class="role" lang="ru">Разработчик</p><p class="role" lang="en">Developer</p>
+            <ul lang="ru">
+              <li>Создание, поддержка и&nbsp;рефакторинг мобильных приложений для&nbsp;зарубежных клиентов; корпоративное приложение с&nbsp;нуля.</li>
+            </ul>
+            <ul lang="en">
+              <li>Built, maintained and refactored mobile apps for international clients; a corporate app from scratch.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2><span lang="ru">Навыки</span><span lang="en">Skills</span></h2>
+        <p lang="ru">Стек, которым пользуюсь каждый день, и&nbsp;то, что&nbsp;вокруг него.</p>
+        <p lang="en">The stack I use every day, and everything around it.</p>
+      </div>
+      <div class="skills reveal">
+        <div class="skill">
+          <h3>React Native</h3>
+          <div class="chips"><span class="chip">TypeScript</span><span class="chip">New Architecture</span><span class="chip">Hermes</span><span class="chip">Reanimated</span><span class="chip">Expo / EAS</span></div>
+        </div>
+        <div class="skill">
+          <h3 lang="ru">Нативная часть</h3><h3 lang="en">Native</h3>
+          <div class="chips"><span class="chip">Kotlin</span><span class="chip">Swift</span><span class="chip" lang="ru">Нативные модули</span><span class="chip" lang="en">Native modules</span><span class="chip" lang="ru">Профилирование производительности</span><span class="chip" lang="en">Performance profiling</span></div>
+        </div>
+        <div class="skill">
+          <h3 lang="ru">Архитектура</h3><h3 lang="en">Architecture</h3>
+          <div class="chips"><span class="chip">Clean Architecture</span><span class="chip">DDD</span><span class="chip">System Design</span><span class="chip" lang="ru">Декларативный UI</span><span class="chip" lang="en">Declarative UI</span></div>
+        </div>
+        <div class="skill">
+          <h3 lang="ru">Стейт и&nbsp;навигация</h3><h3 lang="en">State and navigation</h3>
+          <div class="chips"><span class="chip">MobX</span><span class="chip">Redux</span><span class="chip">React Navigation</span></div>
+        </div>
+        <div class="skill">
+          <h3 lang="ru">Качество и&nbsp;релизы</h3><h3 lang="en">Quality and releases</h3>
+          <div class="chips"><span class="chip">Jest</span><span class="chip">Detox</span><span class="chip" lang="ru">Свои ESLint-правила</span><span class="chip" lang="en">Custom ESLint rules</span><span class="chip">CI/CD</span><span class="chip">Fastlane</span><span class="chip" lang="ru">OTA-обновления</span><span class="chip" lang="en">OTA updates</span></div>
+        </div>
+        <div class="skill">
+          <h3 lang="ru">Вокруг</h3><h3 lang="en">Around it</h3>
+          <div class="chips"><span class="chip">Claude Code</span><span class="chip" lang="ru">AI-агенты</span><span class="chip" lang="en">AI agents</span><span class="chip">Sentry</span><span class="chip">AppMetrica</span><span class="chip">BFF</span><span class="chip">Node.js</span><span class="chip">REST API</span><span class="chip">Docker Compose</span></div>
+        </div>
+      </div>
+
+      <div class="edu reveal">
+        <div>
+          <h3 lang="ru">Образование</h3><h3 lang="en">Education</h3>
+          <p lang="ru">Саратовская государственная консерватория им. Л. В. Собинова</p>
+          <p lang="en">Saratov State Conservatory</p>
+          <p class="sub" lang="ru">Хоровой дирижёр, художественный руководитель · 2021</p>
+          <p class="sub" lang="en">Choral conducting, choir direction · 2021</p>
+        </div>
+        <div>
+          <h3 lang="ru">Языки</h3><h3 lang="en">Languages</h3>
+          <p lang="ru">Русский&nbsp;— родной</p><p lang="en">Russian&nbsp;— native</p>
+          <p lang="ru">Английский&nbsp;— C1</p><p lang="en">English&nbsp;— C1</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="eyebrow"><span lang="ru">Контакты</span><span lang="en">Contact</span></p>
+      <h2 class="reveal"><span lang="ru">Написать мне</span><span lang="en">Get in touch</span></h2>
+      <p class="lead" lang="ru">Поговорить о&nbsp;React Native, архитектуре или процессах разработки&nbsp;— быстрее всего отвечаю в&nbsp;Telegram.</p>
+      <p class="lead" lang="en">Happy to talk React Native, architecture or engineering processes. Telegram is the fastest way to reach me.</p>
+      <div class="contact-links reveal">
+        <a class="contact-card" href="https://t.me/eugnazaroff" target="_blank" rel="noopener">
+          <span><small>Telegram</small><b>@eugnazaroff</b></span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="contact-card" href="mailto:eugnazaroff@gmail.com">
+          <span><small>Email</small><b>eugnazaroff@gmail.com</b></span><span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/evgeniy-nazarov-168234113/" target="_blank" rel="noopener">
+          <span><small>LinkedIn</small><b>evgeniy-nazarov</b></span><span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span lang="ru">© 2026 Евгений Назаров</span><span lang="en">© 2026 Evgeny Nazarov</span>
+    <a href="#top"><span lang="ru">Наверх ↑</span><span lang="en">Back to top ↑</span></a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var titles = {
+      ru: 'Евгений Назаров — Senior / Lead React Native Developer',
+      en: 'Evgeny Nazarov — Senior / Lead React Native Developer'
+    };
+    function setLang(lang, remember) {
+      root.setAttribute('data-lang', lang);
+      root.setAttribute('lang', lang);
+      document.title = titles[lang];
+      document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
+      });
+      if (!remember) return;
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+      // Язык попадает в ссылку, чтобы ей можно было поделиться.
+      try {
+        var url = new URL(location.href);
+        if (lang === 'en') url.searchParams.set('lang', 'en'); else url.searchParams.delete('lang');
+        history.replaceState(null, '', url);
+      } catch (e) {}
+    }
+    setLang(root.getAttribute('data-lang') === 'en' ? 'en' : 'ru', false);
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang'), true); });
+    });
+
+    var header = document.querySelector('header');
+    function onScroll() { header.classList.toggle('scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+    window.addEventListener('beforeprint', function () {
+      items.forEach(function (el) { el.classList.add('in'); });
+    });
+  })();
+</script>
+</body>
+</html>
