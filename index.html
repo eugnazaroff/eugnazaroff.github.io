@@ -137,19 +137,19 @@
   .plane { background: var(--black); color: var(--white); }
 
   /* обо мне */
-  .about { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
-  .about-text { padding: 120px 72px 120px var(--gutter); max-width: 900px; justify-self: end; width: 100%; }
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .about-text { padding: 120px 56px 120px var(--gutter); }
   .quote { font: 800 clamp(3rem, 7vw, 6rem)/0.98 var(--font); letter-spacing: -0.035em; margin-bottom: 48px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .about-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 48px; font-size: 17px; line-height: 1.6; }
+  .about-cols { display: grid; gap: 24px; max-width: 60ch; font-size: 18px; line-height: 1.6; }
   .about .plate { position: relative; min-height: 720px; }
-  .about .plate img { position: absolute; inset: 0; object-position: 50% 30%; }
+  .about .plate img { position: absolute; inset: 0; object-position: 50% 6%; }
 
   /* принципы */
-  .principles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); border-bottom: 1px solid var(--black); }
+  .principles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border-bottom: 1px solid var(--black); }
   .principles .plate { position: relative; min-height: 760px; border-right: 1px solid var(--black); }
   .principles .plate img { position: absolute; inset: 0; object-position: 50% 25%; }
-  .principles-text { padding: 112px var(--gutter) 112px 72px; max-width: 900px; }
+  .principles-text { padding: 112px var(--gutter) 112px 56px; max-width: 760px; }
   .principle + .principle { margin-top: 64px; }
   .principle h3 { font-size: clamp(2.2rem, 4.2vw, 3.75rem); margin-bottom: 20px; }
   .principle p { max-width: 52ch; font-size: 18px; }
@@ -237,7 +237,6 @@
     :root { --gutter: 28px; }
     .bar nav { display: none; }
     .about-text { padding: 96px 48px 96px var(--gutter); }
-    .about-cols { grid-template-columns: 1fr; }
     .principles-text { padding: 96px var(--gutter) 96px 48px; }
     .sec-title, .work, .row { grid-template-columns: 220px minmax(0, 1fr); gap: 0 32px; }
     .contact .plate { margin-left: 48px; }
