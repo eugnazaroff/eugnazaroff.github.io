@@ -40,7 +40,7 @@
   "jobTitle": "Senior React Native Developer",
   "url": "https://eugnazarov.dev/",
   "email": "mailto:eugnazaroff@gmail.com",
-  "address": { "@type": "PostalAddress", "addressLocality": "Саратов", "addressCountry": "RU" },
+  "address": { "@type": "PostalAddress", "addressCountry": "RU" },
   "sameAs": ["https://t.me/eugnazaroff", "https://www.linkedin.com/in/evgeniy-nazarov-168234113/"]
 }
 </script>
@@ -87,6 +87,9 @@
   a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 4px; }
   a:hover { text-decoration-thickness: 2px; }
   :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  /* на чёрных плашках белая обводка снаружи теряется на белом фоне: рисуем её внутри */
+  .cta:focus-visible, .sticky-cta:focus-visible { outline-color: var(--white); outline-offset: -8px; }
+  .skip:focus-visible { outline-color: var(--white); outline-offset: -5px; }
   img { display: block; max-width: 100%; height: auto; }
   p { margin: 0; }
   h1, h2, h3 { margin: 0; font-weight: 800; line-height: 0.98; letter-spacing: -0.035em; }
@@ -143,7 +146,8 @@
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .about-cols { display: grid; gap: 24px; max-width: 60ch; font-size: 18px; line-height: 1.6; }
   .about .plate { position: relative; min-height: 720px; }
-  .about .plate img { position: absolute; inset: 0; object-position: 50% 6%; }
+  /* горизонтальный кадр за столом: в высокой половине держим лицо, руку и ноутбук */
+  .about .plate img { position: absolute; inset: 0; object-position: 60% 50%; }
 
   /* принципы */
   .principles { border-bottom: 1px solid var(--black); }
@@ -184,6 +188,9 @@
   .rows { border-top: 1px solid var(--black); }
   .row { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 0 48px; padding: 18px 0; border-bottom: 1px solid var(--black); font-size: 18px; }
   .row b { font-weight: 700; }
+  /* навыки на чёрной плоскости: бумага и чернила чередуются до конца страницы */
+  .sec.plane { border-bottom: 0; }
+  .plane .rows, .plane .row { border-color: var(--white); }
   .bio { display: block; }
 
   /* контакты */
@@ -195,12 +202,14 @@
   .links a {
     display: grid; grid-template-columns: 140px minmax(0, 1fr) auto; align-items: baseline; gap: 0 16px;
     padding: 22px 0; border-bottom: 1px solid var(--white); text-decoration: none;
-    transition: background .2s cubic-bezier(.16, 1, .3, 1), color .2s cubic-bezier(.16, 1, .3, 1), padding .2s cubic-bezier(.16, 1, .3, 1);
+    /* инверсия мгновенная, без промежуточного серого; плавно едет только отступ */
+    transition: padding .2s cubic-bezier(.16, 1, .3, 1);
   }
   .links .k { font-size: 16px; }
   .links .v { font: 800 clamp(1.5rem, 2.8vw, 2.4rem)/1.05 var(--font); letter-spacing: -0.03em; word-break: break-word; }
   .links .icon { width: 26px; height: 26px; align-self: center; }
-  .links a:hover { background: var(--white); color: var(--black); padding-left: 16px; padding-right: 16px; }
+  .links a:hover, .links a:focus-visible { background: var(--white); color: var(--black); padding-left: 16px; padding-right: 16px; }
+  .links a:focus-visible { outline-offset: -6px; }
   footer { margin-top: 96px; border-top: 1px solid var(--white); }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; padding-top: 20px; padding-bottom: 28px; font-size: 15px; }
   footer a { text-decoration: none; }
@@ -226,6 +235,20 @@
     .now { margin-bottom: 10px; }
     .mail { margin-bottom: 16px; }
     .cta { height: 64px; }
+  }
+  /* совсем низкие ноутбуки (1366×768, 1280×720 за вычетом панелей браузера):
+     фото не растягивает первый экран, цифры встают в одну строку */
+  @media (min-width: 761px) and (max-height: 760px) {
+    .hero .plate { min-height: 0; }
+    .hero-text { padding-top: 16px; }
+    .hero h1 { font-size: clamp(2.75rem, 8.4vh, 3.75rem); margin: 6px 0 12px; }
+    .hero .title { margin-bottom: 10px; }
+    .hero .lede { margin-bottom: 14px; }
+    .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 20px; margin-bottom: 14px; border-bottom: 1px solid var(--black); }
+    .facts li { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 8px 0; border-bottom: 0; font-size: 15px; line-height: 1.35; }
+    .now { margin-bottom: 8px; }
+    .mail { margin-bottom: 12px; }
+    .cta { height: 56px; }
   }
 
   @media (max-width: 1100px) {
@@ -256,7 +279,8 @@
     .cta { margin: 0 calc(-1 * var(--gutter)) 24px; padding: 0 var(--gutter); height: 60px; font-size: 18px; }
     .cta .icon { width: 20px; height: 20px; }
     .mail { margin-bottom: 0; }
-    .about .plate { min-height: 0; aspect-ratio: 4 / 4.6; order: -1; }
+    .about .plate { min-height: 0; aspect-ratio: 3 / 2; order: -1; }
+    .about .plate img { object-position: 50% 50%; }
     .about-text { padding: 48px var(--gutter) 64px; }
     .quote { margin-bottom: 36px; }
     .principles-text { padding: 56px var(--gutter) 64px; }
@@ -333,8 +357,8 @@
         <li><b>3</b><span lang="ru">приложения вывел с&nbsp;нуля до&nbsp;продакшна</span><span lang="en">apps taken from zero to production</span></li>
         <li><b>6</b><span lang="ru">компаний, в&nbsp;том числе Самокат и&nbsp;Купер</span><span lang="en">companies, including Samokat and Kuper</span></li>
       </ul>
-      <p class="now" lang="ru">Сейчас: Senior Mobile в&nbsp;«Стобалльном репетиторе», EdTech. Саратов, удалённо. English C1.</p>
-      <p class="now" lang="en">Now: Senior Mobile at Stoballny Repetitor, EdTech. Saratov, Russia (UTC+4), remote. English C1.</p>
+      <p class="now" lang="ru">Сейчас: Senior Mobile в&nbsp;«Стобалльном репетиторе», EdTech. Удалённо. English C1.</p>
+      <p class="now" lang="en">Now: Senior Mobile at Stoballny Repetitor, EdTech. Russia (UTC+4), remote. English C1.</p>
       <a class="mail" href="mailto:eugnazaroff@gmail.com">eugnazaroff@gmail.com</a>
       <a class="cta" href="https://t.me/eugnazaroff" target="_blank" rel="noopener">
         <span lang="ru">Написать в&nbsp;Telegram</span><span lang="en">Message on Telegram</span>
@@ -355,7 +379,7 @@
       </div>
     </div>
     <figure class="plate">
-      <img src="img/plate-5.jpg" srcset="img/plate-5-720.jpg 720w, img/plate-5.jpg 1067w" sizes="(max-width: 760px) 100vw, 45vw" alt="" width="1067" height="1600" loading="lazy">
+      <img src="img/plate-desk.jpg" srcset="img/plate-desk-800.jpg 800w, img/plate-desk.jpg 1600w" sizes="(max-width: 760px) 100vw, 50vw" alt="" width="1600" height="1067" loading="lazy">
     </figure>
   </section>
 
@@ -389,8 +413,8 @@
       </figure>
       <div class="works-head-text">
         <h2><span lang="ru">Опыт</span><span lang="en">Experience</span></h2>
-        <p lang="ru">Продуктовые команды, логистика, EdTech и&nbsp;госпроекты. Везде React Native и&nbsp;ответственность за&nbsp;результат.</p>
-        <p lang="en">Product teams, logistics, EdTech and government projects. React Native everywhere, with ownership of the outcome.</p>
+        <p lang="ru">Продуктовые команды, логистика и&nbsp;EdTech. Везде React Native и&nbsp;ответственность за&nbsp;результат.</p>
+        <p lang="en">Product teams, logistics and EdTech. React Native everywhere, with ownership of the outcome.</p>
       </div>
     </div>
     <div class="wrap">
@@ -514,8 +538,8 @@
     </div>
   </section>
 
-  <!-- Навыки -->
-  <section class="sec" id="skills">
+  <!-- Навыки: чёрная плоскость -->
+  <section class="sec plane" id="skills">
     <div class="wrap">
       <div class="sec-title">
         <h2><span lang="ru">Навыки</span><span lang="en">Skills</span></h2>
@@ -541,7 +565,7 @@
           <h2><span lang="ru">Образование и&nbsp;языки</span><span lang="en">Education and languages</span></h2>
         </div>
         <div class="rows">
-          <div class="row"><b lang="ru">Образование</b><b lang="en">Education</b><span lang="ru">Саратовская государственная консерватория им.&nbsp;Л.&nbsp;В.&nbsp;Собинова. Хоровой дирижёр, художественный руководитель, 2021</span><span lang="en">Saratov State Conservatory. Choral conducting, choir direction, 2021</span></div>
+          <div class="row"><b lang="ru">Образование</b><b lang="en">Education</b><span lang="ru">Консерватория, хоровой дирижёр, художественный руководитель, 2021</span><span lang="en">Conservatory, choral conducting, choir direction, 2021</span></div>
           <div class="row"><b lang="ru">Языки</b><b lang="en">Languages</b><span lang="ru">Русский&nbsp;— родной; английский&nbsp;— C1</span><span lang="en">Russian&nbsp;— native; English&nbsp;— C1</span></div>
         </div>
       </div>
